@@ -1,6 +1,10 @@
 import React from 'react'
 
 const FooterComponent = () => {
+    // Ẩn footer nếu ở trang login
+    if (location.pathname === '/log-in' || location.pathname === '/sign-up') {
+        return null;
+    }
     return (
         <div>
             <footer className='footer'>

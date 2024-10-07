@@ -1,29 +1,22 @@
-import axios from "axios";
-const instance = axios.create({
-    baseURL: "http://localhost:8080",
-});
-instance.interceptors.request.use(
-    function (config) {
-        let localStore = window.localStorage.getItem("persist:user");
-        if (localStore && typeof localStore === "string") {
-            localStore = JSON.parse(localStore);
-            const token = JSON.parse(localStore?.token);
-            config.headers.Authorization = `Bearer ${token}`;
-            return config;
-        } else return config;
-    },
-    function (error) {
-        return Promise.reject(error);
-    }
-);
+// axiosConfig.js
+import axios from 'axios';
 
-// Add a response interceptor
-instance.interceptors.response.use(
-    function (response) {
-        return response.data;
-    },
-    function (error) {
-        return error.response.data;
+const axiosInstance = axios.create({
+    baseURL: 'http://localhost:8080', // Địa chỉ API của bạn
+    headers: {
+        'Content-Type': 'application/json',
     }
-);
-export default instance;
+});
+
+// Thêm interceptor để tự động thêm token vào mỗi yêu cầu
+axiosInstance.interceptors.request.use(config => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+}, error => {
+    return Promise.reject(error);
+});
+
+export default axiosInstance;

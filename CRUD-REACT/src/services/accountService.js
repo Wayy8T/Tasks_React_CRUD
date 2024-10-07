@@ -14,6 +14,10 @@ const REST_API_BASE_URL = 'http://localhost:8080/auth/log-in';
 //     });
 // };   
 
+export const registerService = (data) => {
+    return axios.post("http://localhost:8080/auth/register", data)
+};
+
 export const loginService = (data) => {
     return axios.post(REST_API_BASE_URL, data)
 };
