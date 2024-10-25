@@ -1,5 +1,4 @@
 import axios from 'axios'
-const REST_API_BASE_URL = 'http://localhost:8080/auth/log-in';
 
 // export const apiLogin = (data) => {
 //     return axios({
@@ -15,9 +14,13 @@ const REST_API_BASE_URL = 'http://localhost:8080/auth/log-in';
 // };   
 
 export const registerService = (data) => {
-    return axios.post("http://localhost:8080/auth/register", data)
+    const baseUrl = import.meta.env.VITE_REST_API_BASE_URL;
+    console.log(baseUrl + "baseUrl")
+    return axios.post(`${baseUrl}auth/register`, data);
 };
 
 export const loginService = (data) => {
-    return axios.post(REST_API_BASE_URL, data)
+    const baseUrl = import.meta.env.VITE_REST_API_BASE_URL;
+    console.log(baseUrl + "baseUrl")
+    return axios.post(`${baseUrl}auth/log-in`, data);
 };
